@@ -42,23 +42,17 @@ public class ExcecaoExemplos {
 		
 		System.out.print("Data do Check-out (dd/MM/yyyy): ");
 		checkOut = sdf.parse(sc.next());
-		
-		Date now = new Date();
-		if (checkIn.before(now) || checkOut.before(now)) {
-			System.out.println("Erro na reserva: As datas atualizadas devem ser futuras as datas anteriores.");
-		}
-		else if (!checkOut.after(checkIn)) {
-			System.out.println("Erro na reserva: A data de check-out deve ser maior que a data de check-in");
+
+		String error = reservation.updateDates(checkIn, checkOut);
+		if (error != null) {
+			System.out.println("Erro na reserva: " + error);
 		}
 		else {
-			reservation.updateDates(checkIn, checkOut);
-			System.out.println("Reserva: " + reservation.toString());	
-		}
+			System.out.println("Reserva: " + reservation.toString());
+		}	
 		
 		}
-		
-		
-		
+	
 		sc.close();
 
 	}
